@@ -1,0 +1,59 @@
+{
+  "name": "youtube-miniplayer",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "main/index.js",
+  "productName": "Youtube Miniplayer",
+  "scripts": {
+    "clean": "rimraf dist main renderer/out renderer/.next",
+    "dev": "npm run build-electron && electron .",
+    "build-renderer": "next build renderer && next export renderer",
+    "build-electron": "tsc -p electron-src",
+    "build": "npm run build-renderer && npm run build-electron",
+    "pack-app": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder --win --mac --linux",
+    "type-check": "tsc"
+  },
+  "dependencies": {
+    "electron-is-dev": "^1.1.0",
+    "electron-next": "^3.1.5",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-youtube": "^7.13.1"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.134",
+    "@types/node": "^14.14.6",
+    "@types/react": "^16.9.9",
+    "@types/react-dom": "^16.9.9",
+    "autoprefixer": "^10.2.5",
+    "electron": "^10.1.5",
+    "electron-builder": "^22.9.1",
+    "next": "^11.0.1",
+    "postcss": "^8.2.9",
+    "rimraf": "^3.0.0",
+    "tailwindcss": "^2.1.1",
+    "typescript": "^4.3.5"
+  },
+  "build": {
+    "appId": "yt-playerv2",
+    "protocols": {
+      "name": "yt-player",
+      "schemes": [
+        "yt-player"
+      ]
+    },
+    "mac": {
+      "category": "public.app-category.Reference",
+      "icon": "build/logo.png"
+    },
+    "win": {
+      "icon": "build/logo.png",
+      "target": "NSIS"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/logo.png"
+    }
+  }
+}
